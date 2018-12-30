@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoNLAE_solving.Logic.Utils
+namespace SoNLAE_solving.Logic.Methods
 {
-    public delegate void Workable();
+    class Parallelizable
+    {
+    }
 }

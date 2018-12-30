@@ -17,7 +17,7 @@ namespace SoNLAE_solving.Logic.Models
         void UpendColumn(VectorInterface<T> column);
         int RowCount { get; }
         int ColumnCount { get; }
-        T[][] ToArray();
+        T[][] toArray();
 
         VectorInterface<T>[] Vectors { get; }
 

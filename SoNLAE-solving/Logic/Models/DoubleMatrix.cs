@@ -78,7 +78,7 @@ namespace SoNLAE_solving.Logic.Models
             return array;
         }
 
-    public MatrixInterface<double> Copy()
+    public MatrixInterface<double> copy()
     {
         VectorInterface<double>[] data = new VectorInterface<double>[RowCount];
         for (int i = 0; i < RowCount; i++)
@@ -108,6 +108,21 @@ namespace SoNLAE_solving.Logic.Models
                 result.Append(vector + "\n");
             result.Remove(result.Length - 1, 1);
             return result.ToString();
+        }
+
+        public void UpendColumn(VectorInterface<double> column)
+        {
+            throw new NotImplementedException();
+        }
+
+        double[][] MatrixInterface<double>.toArray()
+        {
+            throw new NotImplementedException();
+        }
+
+        public MatrixInterface<double> Copy()
+        {
+            throw new NotImplementedException();
         }
     }
 
