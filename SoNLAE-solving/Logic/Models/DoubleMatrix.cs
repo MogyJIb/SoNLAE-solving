@@ -110,11 +110,6 @@ namespace SoNLAE_solving.Logic.Models
             return result.ToString();
         }
 
-        public void UpendColumn(VectorInterface<double> column)
-        {
-            throw new NotImplementedException();
-        }
-
         double[][] MatrixInterface<double>.toArray()
         {
             throw new NotImplementedException();

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SoNLAE_solving.Logic.Methods
 {
-    class Parallelizable
+    public interface Parallelizable
     {
+        int ThreadCount { get; set; }
     }
 }

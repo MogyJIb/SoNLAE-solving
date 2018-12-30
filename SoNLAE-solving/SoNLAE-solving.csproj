@@ -52,10 +52,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Methods\GaussParallelMethod.cs" />
     <Compile Include="Logic\Methods\AbstractMethod.cs" />
     <Compile Include="Logic\Methods\GaussMethod.cs" />
+    <Compile Include="Logic\Methods\Parallelizable.cs" />
     <Compile Include="Logic\Methods\SOLAEMatrixUtil.cs" />
     <Compile Include="Logic\Methods\SOLAEMethodInterface.cs" />
+    <Compile Include="Logic\Methods\SOLAEParallelMethodInterface.cs" />
     <Compile Include="Logic\Models\Constants.cs" />
     <Compile Include="Logic\Models\DoubleMatrix.cs" />
     <Compile Include="Logic\Models\DoubleVector.cs" />

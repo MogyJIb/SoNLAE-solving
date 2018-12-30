@@ -31,8 +31,8 @@ namespace SoNLAE_solving.Logic.Statistic
         for (int i = 0; i < threadsCounts.Length; i++)
         {
             SOLAEParallelMethodInterface<Double> method =
-                    getMethod(matrix.Copy());
-            method.setThreadCount(threadsCounts[i]);
+                    GetMethod(matrix.Copy());
+            method.ThreadCount = (threadsCounts[i]);
 
             WorkTimeCounter workTimeCounter = new WorkTimeCounter(method.Solve);
             workTimeCounter.MakeWork();
