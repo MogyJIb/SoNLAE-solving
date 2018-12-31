@@ -20,7 +20,6 @@ namespace SoNLAE_solving.Logic.Utils
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
             work();
-            // the code that you want to measure comes here
             watch.Stop();
             this.workTime = watch.ElapsedMilliseconds;
         }

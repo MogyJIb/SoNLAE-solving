@@ -9,23 +9,24 @@ namespace SoNLAE_solving.Logic.Utils
 {
     public class Rand
     {
-        private static int Int(int max)
+        static Random random = new Random();
+        public static int Int(int max)
         {
-            return new Random().Next(max);
+            return random.Next(max);
         }
 
-        private static double Double(double max)
+        public static double Double(double max)
         {
-            return new Random().NextDouble() * max;
+            return random.NextDouble() * max;
         }
 
-        private static DoubleVector DoubleVector(double max, int count)
+        public static DoubleVector DoubleVector(double max, int count)
         {
             double[] array = new RandomArray<double, double>(Double).Instance(max, count);
             return new DoubleVector(array);
         }
 
-        private static DoubleMatrix DoubleMatrix(Double max, int rowCount, int columnCount)
+        public static DoubleMatrix DoubleMatrix(Double max, int rowCount, int columnCount)
         {
             double[][] array = new double[rowCount][];
 
