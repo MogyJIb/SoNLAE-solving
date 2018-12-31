@@ -78,7 +78,7 @@ namespace SoNLAE_solving.Logic.Models
             return array;
         }
 
-    public MatrixInterface<double> copy()
+    public MatrixInterface<double> Copy()
     {
         VectorInterface<double>[] data = new VectorInterface<double>[RowCount];
         for (int i = 0; i < RowCount; i++)
@@ -93,7 +93,9 @@ namespace SoNLAE_solving.Logic.Models
 
             DoubleMatrix doubleMatrix = (DoubleMatrix)obj;
 
-            return Array.Equals(Vectors, doubleMatrix.Vectors);
+            for (int i = 0; i < Vectors.Length; i++)
+                if (!Vectors[i].Equals(doubleMatrix.Vectors[i])) return false;
+            return true;
         }
 
         public override int GetHashCode()
@@ -111,11 +113,6 @@ namespace SoNLAE_solving.Logic.Models
         }
 
         double[][] MatrixInterface<double>.toArray()
-        {
-            throw new NotImplementedException();
-        }
-
-        public MatrixInterface<double> Copy()
         {
             throw new NotImplementedException();
         }

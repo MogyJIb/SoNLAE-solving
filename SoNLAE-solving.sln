@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoNLAE-solving", "SoNLAE-solving\SoNLAE-solving.csproj", "{D2CC2A89-082D-4DC6-8C65-9319F1DE153C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{F69BD82F-26A3-442D-A93F-6121D6C1D1AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D2CC2A89-082D-4DC6-8C65-9319F1DE153C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CC2A89-082D-4DC6-8C65-9319F1DE153C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CC2A89-082D-4DC6-8C65-9319F1DE153C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69BD82F-26A3-442D-A93F-6121D6C1D1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69BD82F-26A3-442D-A93F-6121D6C1D1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69BD82F-26A3-442D-A93F-6121D6C1D1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69BD82F-26A3-442D-A93F-6121D6C1D1AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
