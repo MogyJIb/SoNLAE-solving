@@ -54,7 +54,7 @@ namespace SoNLAE_solving
 
             try
             {
-                GaussStatisticsMaker gaussStatisticsMaker = new GaussStatisticsMaker(matrix, 3, 5, 10);
+                GaussStatisticsMaker gaussStatisticsMaker = new GaussStatisticsMaker(matrix, 2, 3, 5, 10);
                 gaussStatisticsMaker.MakeStatistic();
                 gaussStatistics = gaussStatisticsMaker.GetWorkStatistic();
                 DrawChart();

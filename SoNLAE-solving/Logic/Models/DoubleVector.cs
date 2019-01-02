@@ -9,7 +9,7 @@ namespace SoNLAE_solving.Logic.Models
 {
     public class DoubleVector : VectorInterface<double>
     {
-        private List<double> data;
+        public List<double> data { get; set;}
 
         public int Count => data.Count;
 
@@ -18,6 +18,11 @@ namespace SoNLAE_solving.Logic.Models
         public double this[int index] { get => data[index]; set => data[index] = value; }
 
         public DoubleVector(params double[] data) : this(new List<double>(data)) { }
+
+        public DoubleVector()
+        {
+            this.data = new List<double>();
+        }
 
         public DoubleVector(List<double> data)
         {
