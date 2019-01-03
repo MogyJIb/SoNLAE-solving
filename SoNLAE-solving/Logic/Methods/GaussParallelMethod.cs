@@ -20,7 +20,7 @@ namespace SoNLAE_solving.Logic.Methods
             this.Addresses = addresses;
         }
 
-        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, new string[] { "http://127.0.0.1/" }) { }
+        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, new string[] { "http://127.0.0.1/", "http://127.0.0.2/" }) { }
 
         public GaussParallelMethod(Double[][] matrix) : this(new DoubleMatrix(matrix)) { }
 
@@ -75,14 +75,15 @@ namespace SoNLAE_solving.Logic.Methods
         private class LineSumThread
         {
 
-            private RestApi restApi;
-            private Task<RestDTO> task;
+            RestApi restApi;
+            Task<RestDTO> task;
+            Thread thread;
 
-            private int startLineIndex;
-            private int endLineIndex;
+            int startLineIndex;
+            int endLineIndex;
 
-            private int addVectorIndex;
-            private VectorInterface<Double>[] vectors;
+            int addVectorIndex;
+            VectorInterface<Double>[] vectors;
 
             public LineSumThread(int startLineIndex, int endLineIndex,
                                  int addVectorIndex, VectorInterface<Double>[] vectors)
@@ -93,21 +94,29 @@ namespace SoNLAE_solving.Logic.Methods
                 this.vectors = vectors;
             }
 
-            public async void Start(string address)
+            public void Start(string address)
             {
                 restApi = new RestApi(address);
+                thread = new Thread(StartThread);
+                thread.Start();
+            }
+
+            private void StartThread()
+            {
                 var vectors = new DoubleVector[this.vectors.Length];
                 for (int i = 0; i < vectors.Length; i++) vectors[i] = (DoubleVector)this.vectors[i];
                 task = restApi.CalculateService.Calculate(new RestDTO(startLineIndex, endLineIndex, addVectorIndex, vectors));
-                await task;
+                task.Wait();
+
+                RestDTO restDTO =task.Result;
+                for (int i = startLineIndex; i < endLineIndex && i < vectors.Length; i++)
+                    for (int j = 0; j < vectors[i].Count; j++)
+                        vectors[i][j] = restDTO.Vectors[i][j];
             }
 
             public void Join()
             {
-                RestDTO restDTO = task.Result;
-                for (int i = startLineIndex; i < endLineIndex && i < vectors.Length; i++)
-                    for (int j = 0; j < vectors[i].Count; j++)
-                        vectors[i][j] = restDTO.Vectors[i][j];
+                thread.Join();
             }
         }
     }
