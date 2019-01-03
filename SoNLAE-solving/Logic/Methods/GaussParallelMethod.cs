@@ -20,7 +20,7 @@ namespace SoNLAE_solving.Logic.Methods
             this.Addresses = addresses;
         }
 
-        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, new string[] { "http://127.0.0.1/", "http://127.0.0.2/" }) { }
+        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, new string[] { "http://127.0.0.1/" }) { }
 
         public GaussParallelMethod(Double[][] matrix) : this(new DoubleMatrix(matrix)) { }
 

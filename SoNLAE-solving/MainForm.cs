@@ -54,12 +54,20 @@ namespace SoNLAE_solving
 
             try
             {
-                GaussStatisticsMaker gaussStatisticsMaker = new GaussStatisticsMaker(matrix, 1, 2, 3, 5);
+                GaussStatisticsMaker gaussStatisticsMaker = new GaussStatisticsMaker(matrix, 1, 2, 3, 4);
                 gaussStatisticsMaker.MakeStatistic();
                 gaussStatistics = gaussStatisticsMaker.GetWorkStatistic();
                 DrawChart();
+
+                GaussMethod gaussMethod = new GaussMethod(matrix);
+                gaussMethod.Solve();
+                VectorInterface<double> result = gaussMethod.GetSolution();
+
+                FileHandler.WriteMatrix(matrix);
+                FileHandler.WriteSolution(result);
             }
             catch (Exception exc) { }
+
         }
 
         private void DrawChart()

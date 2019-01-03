@@ -8,6 +8,6 @@ namespace SoNLAE_solving.Logic.Models
 {
     public class Constants
     {
-        public const double DELTA = 1.0e-7;
+        public const double DELTA = 1.0e-4;
     }
 }

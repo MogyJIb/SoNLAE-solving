@@ -24,6 +24,7 @@ namespace SoNLAE_solving.Logic.Statistic
             this.threadsCounts = threadsCount;
             workStatistic = new Dictionary<int, long>();
             addresses = FileHandler.ReadIPs();
+            addresses = addresses.Take(1).ToArray();
         }
 
         protected abstract SOLAEParallelMethodInterface<double> GetMethod(MatrixInterface<double> matrix);
