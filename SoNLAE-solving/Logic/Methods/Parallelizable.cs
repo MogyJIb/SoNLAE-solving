@@ -8,6 +8,6 @@ namespace SoNLAE_solving.Logic.Methods
 {
     public interface Parallelizable
     {
-        int ThreadCount { get; set; }
+        string[] Addresses { get; set; }
     }
 }

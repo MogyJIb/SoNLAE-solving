@@ -28,7 +28,7 @@ namespace SoNLAE_solving.Logic.Utils
             }
         }
 
-        public static string[] ReadIPs(string path)
+        public static string[] ReadIPs()
         {
             XmlSerializer formatter = new XmlSerializer(typeof(string[]));
 
@@ -38,7 +38,7 @@ namespace SoNLAE_solving.Logic.Utils
             }
         }
 
-        public static void WriteIPs(string path, string[] ips)
+        public static void WriteIPs(string[] ips)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(string[]));
 

@@ -1,4 +1,5 @@
 ﻿using SoNLAE_solving.Logic.Models;
+using SoNLAE_solving.Logic.Rest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,24 @@ namespace SoNLAE_solving.Logic.Methods
 {
     public class GaussParallelMethod : GaussMethod, SOLAEParallelMethodInterface<Double>
     {
-        public int ThreadCount { get; set; }
+        public string[] Addresses { get; set; }
+        private int curr = 0;
 
-        public GaussParallelMethod(MatrixInterface<Double> matrix, int threadCount) : base(matrix)
+        public GaussParallelMethod(MatrixInterface<Double> matrix, string[] addresses) : base(matrix)
         {
             name = "Gauss parallel";
-            this.ThreadCount = threadCount;
+            this.Addresses = addresses;
         }
 
-        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, 5) { }
+        public GaussParallelMethod(MatrixInterface<Double> matrix) : this(matrix, new string[] { "http://127.0.0.1/" }) { }
 
         public GaussParallelMethod(Double[][] matrix) : this(new DoubleMatrix(matrix)) { }
-
 
         protected override void MakeTriangle(VectorInterface<Double>[] data)
         {
             List<LineSumThread> threads = new List<LineSumThread>();
 
-            int step = getThreadsStep(ThreadCount);
+            int step = getThreadsStep(Addresses.Length);
             int startInd, endInd;
 
             for (int i = 0; i < data.Length; i++)
@@ -40,13 +41,16 @@ namespace SoNLAE_solving.Logic.Methods
                     {
                         endInd = i + 1 + (j + 1) * step;
                         LineSumThread thread = new LineSumThread(startInd, endInd, i, data);
-                        thread.Start();
+                        thread.Start(Addresses[curr]);
+                        curr++;
+                        if (curr >= Addresses.Length) curr = 0;
 
                         threads.Add(thread);
                     }
                 }
+
                 foreach (LineSumThread thread in threads)
-                    thread.Join();
+                        thread.Join();
             }
         }
 
@@ -71,7 +75,8 @@ namespace SoNLAE_solving.Logic.Methods
         private class LineSumThread
         {
 
-            private Thread thread { get; set; }
+            private RestApi restApi;
+            private Task<RestDTO> task;
 
             private int startLineIndex;
             private int endLineIndex;
@@ -86,36 +91,23 @@ namespace SoNLAE_solving.Logic.Methods
                 this.endLineIndex = endLineIndex;
                 this.addVectorIndex = addVectorIndex;
                 this.vectors = vectors;
-                thread = new Thread(run);
             }
 
-            public void Start()
+            public async void Start(string address)
             {
-                thread.Start();
+                restApi = new RestApi(address);
+                var vectors = new DoubleVector[this.vectors.Length];
+                for (int i = 0; i < vectors.Length; i++) vectors[i] = (DoubleVector)this.vectors[i];
+                task = restApi.CalculateService.Calculate(new RestDTO(startLineIndex, endLineIndex, addVectorIndex, vectors));
+                await task;
             }
 
             public void Join()
             {
-                thread.Join();
-            }
-
-            private void run()
-            {
-                int i = addVectorIndex;
-                Double diagonalElement = vectors[i][i];
-
-                if (Double.IsInfinity(1 / diagonalElement)
-                        || Double.IsNaN(1 / diagonalElement))
-                    throw new ArithmeticException("Division by zero.");
-
-                for (int j = startLineIndex; j < endLineIndex && j < vectors.Length; j++)
-                {
-                    VectorInterface<Double> lineToAdd = vectors[i].Copy();
-                    Double coefficient = -vectors[j][i] / diagonalElement;
-
-                    lineToAdd.Mul(coefficient);
-                    vectors[j].Add(lineToAdd);
-                }
+                RestDTO restDTO = task.Result;
+                for (int i = startLineIndex; i < endLineIndex && i < vectors.Length; i++)
+                    for (int j = 0; j < vectors[i].Count; j++)
+                        vectors[i][j] = restDTO.Vectors[i][j];
             }
         }
     }

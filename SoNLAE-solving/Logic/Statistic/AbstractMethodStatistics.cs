@@ -15,6 +15,7 @@ namespace SoNLAE_solving.Logic.Statistic
         private MatrixInterface<double> matrix;
         private int[] threadsCounts;
         private Dictionary<int, long> workStatistic;
+        private string[] addresses;
 
 
         public AbstractMethodStatistics(MatrixInterface<double> matrix, params int[] threadsCount)
@@ -22,6 +23,7 @@ namespace SoNLAE_solving.Logic.Statistic
             this.matrix = matrix;
             this.threadsCounts = threadsCount;
             workStatistic = new Dictionary<int, long>();
+            addresses = FileHandler.ReadIPs();
         }
 
         protected abstract SOLAEParallelMethodInterface<double> GetMethod(MatrixInterface<double> matrix);
@@ -32,7 +34,7 @@ namespace SoNLAE_solving.Logic.Statistic
             {
                 SOLAEParallelMethodInterface<Double> method =
                         GetMethod(matrix.Copy());
-                method.ThreadCount = (threadsCounts[i]);
+                method.Addresses = addresses.Take(threadsCounts[i] <= addresses.Length ? threadsCounts[i] : addresses.Length).ToArray();
 
                 WorkTimeCounter workTimeCounter = new WorkTimeCounter(method.Solve);
                 workTimeCounter.MakeWork();
